@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compare Loan Rates & Save | Official Partner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Nunito+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --lt-green: #00D67D; 
+            --lt-green-hover: #00B56A;
+            --lt-navy: #0A1C28;  
+            --lt-light: #EAF9F1; 
+        }
+        
+        body {
+            font-family: 'Nunito Sans', sans-serif;
+            background-color: #f8fafc;
+            color: var(--lt-navy);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        .font-serif { font-family: 'Lora', serif; }
+
+        /* 顶部视觉区：增加网格暗纹，打破单调 */
+        .hero-banner {
+            background-color: var(--lt-green);
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            position: relative;
+        }
+
+        /* 核心 CTA 卡片：增强立体感与点击欲 */
+        .option-card {
+            background-color: #ffffff;
+            border-radius: 20px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 2px solid transparent;
+            box-shadow: 0 15px 35px rgba(10, 28, 40, 0.08);
+            position: relative;
+            overflow: hidden;
+            z-index: 10;
+        }
+        
+        .option-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0, 214, 125, 0.2);
+            border-color: var(--lt-green);
+        }
+
+        /* 鼠标悬停时的光晕扫过 */
+        .option-card::after {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(0, 214, 125, 0.1), transparent);
+            transform: skewX(-25deg); transition: 0.5s;
+        }
+        .option-card:hover::after { animation: shine-fast 0.8s forwards; }
+        @keyframes shine-fast { 100% { left: 200%; } }
+
+        .card-arrow { transition: transform 0.3s ease; }
+        .option-card:hover .card-arrow { transform: translateX(8px); color: var(--lt-green); }
+
+        /* 吸底按钮扫光动效 */
+        .shimmer::after {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.25), transparent);
+            transform: skewX(-25deg); animation: shine 3s infinite;
+        }
+        @keyframes shine { 0% { left: -100%; } 20% { left: 200%; } 100% { left: 200%; } }
+
+        /* 隐藏UI */
+        .hidden-ui { opacity: 0; transform: translateY(20px); pointer-events: none; position: absolute; }
+        .fade-in { animation: fadeIn 0.5s ease forwards; }
+        @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="pb-28 md:pb-0">
+
+    <!-- 1. 顶部紧迫感通知 (制造势能) -->
+    <div class="w-full bg-[var(--lt-navy)] text-white py-2 px-4 flex justify-center items-center gap-3 text-[10px] md:text-xs font-bold uppercase tracking-widest">
+        <span class="w-2.5 h-2.5 bg-yellow-400 rounded-full animate-pulse shadow-[0_0_10px_rgba(250,204,21,0.8)]"></span>
+        Alert: Lenders are competing with record-low rates this week
+    </div>
+
+    <!-- 2. Hero Section: 情绪煽动 -->
+    <section class="hero-banner pt-12 pb-40 px-6 border-b border-white/20">
+        <div class="max-w-5xl mx-auto flex flex-col items-center text-center relative z-10">
+            
+            <p class="bg-white/20 text-[var(--lt-navy)] px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest mb-6 backdrop-blur-md border border-white/40 shadow-sm">
+                Unlock Pre-Approved Offers
+            </p>
+
+            <h1 class="font-serif text-5xl md:text-6xl lg:text-7xl font-bold text-[var(--lt-navy)] leading-[1.05] mb-6 tracking-tight drop-shadow-sm">
+                Don't settle for your <br>bank's <span class="italic font-normal">first offer.</span>
+            </h1>
+            
+            <p class="text-lg md:text-xl text-[var(--lt-navy)]/80 font-bold mb-10 max-w-2xl">
+                When 300+ lenders compete for your business, you win. Compare rates in 2 minutes with <span class="border-b-2 border-[var(--lt-navy)] pb-0.5">no impact to your credit score</span>.
+            </p>
+        </div>
+    </section>
+
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 relative z-20">
+        
+        <!-- 3. 核心钩子区: 带有“利益诱导”的互选卡片 -->
+        <!-- 负 margin 悬浮设计 -->
+        <div class="-mt-32 mb-20">
+            <div class="flex justify-between items-end mb-4 px-2">
+                <h3 class="font-black text-[var(--lt-navy)] uppercase tracking-widest text-sm">Step 1: Select your goal</h3>
+                <span class="text-xs font-bold text-[var(--lt-navy)]/60 bg-white/40 px-2 py-1 rounded">Takes 60 seconds</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                
+                <!-- 卡片 1 (Personal Loans) -->
+                <a href="YOUR_OFFER_LINK_HERE" class="option-card group">
+                    <div class="absolute top-4 right-4 bg-red-100 text-red-600 px-2 py-1 rounded text-[9px] font-black uppercase flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 bg-red-600 rounded-full animate-ping"></span> HOT
+                    </div>
+                    <div class="w-12 h-12 rounded-full bg-[var(--lt-light)] text-[var(--lt-green)] flex items-center justify-center mb-6 shadow-inner">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <div>
+                        <h4 class="font-black text-xl mb-1 text-gray-900">Personal Loans</h4>
+                        <p class="text-xs font-bold text-[var(--lt-green)] mb-6">Rates from 6.99% APR*</p>
+                        <div class="flex justify-between items-center w-full pt-4 border-t border-gray-100">
+                            <span class="text-xs font-bold text-gray-400 uppercase">Find My Rate</span>
+                            <span class="card-arrow text-xl text-gray-300 font-black">→</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- 卡片 2 (Debt Consolidation) -->
+                <a href="YOUR_OFFER_LINK_HERE" class="option-card group">
+                    <div class="w-12 h-12 rounded-full bg-[var(--lt-light)] text-[var(--lt-green)] flex items-center justify-center mb-6 shadow-inner">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                    </div>
+                    <div>
+                        <h4 class="font-black text-xl mb-1 text-gray-900">Debt Relief</h4>
+                        <p class="text-xs font-bold text-[var(--lt-green)] mb-6">Cut payments by up to 50%</p>
+                        <div class="flex justify-between items-center w-full pt-4 border-t border-gray-100">
+                            <span class="text-xs font-bold text-gray-400 uppercase">See Options</span>
+                            <span class="card-arrow text-xl text-gray-300 font-black">→</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- 卡片 3 (Home Equity) -->
+                <a href="YOUR_OFFER_LINK_HERE" class="option-card group">
+                    <div class="absolute top-4 right-4 bg-[var(--lt-light)] text-[var(--lt-green)] px-2 py-1 rounded text-[9px] font-black uppercase">Popular</div>
+                    <div class="w-12 h-12 rounded-full bg-[var(--lt-light)] text-[var(--lt-green)] flex items-center justify-center mb-6 shadow-inner">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                    </div>
+                    <div>
+                        <h4 class="font-black text-xl mb-1 text-gray-900">Home Equity</h4>
+                        <p class="text-xs font-bold text-[var(--lt-green)] mb-6">Tap into your home's value</p>
+                        <div class="flex justify-between items-center w-full pt-4 border-t border-gray-100">
+                            <span class="text-xs font-bold text-gray-400 uppercase">Check Rates</span>
+                            <span class="card-arrow text-xl text-gray-300 font-black">→</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- 卡片 4 (Credit Cards) -->
+                <a href="YOUR_OFFER_LINK_HERE" class="option-card group">
+                    <div class="w-12 h-12 rounded-full bg-[var(--lt-light)] text-[var(--lt-green)] flex items-center justify-center mb-6 shadow-inner">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
+                    </div>
+                    <div>
+                        <h4 class="font-black text-xl mb-1 text-gray-900">Credit Cards</h4>
+                        <p class="text-xs font-bold text-[var(--lt-green)] mb-6">0% Intro APR offers inside</p>
+                        <div class="flex justify-between items-center w-full pt-4 border-t border-gray-100">
+                            <span class="text-xs font-bold text-gray-400 uppercase">Find Cards</span>
+                            <span class="card-arrow text-xl text-gray-300 font-black">→</span>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+
+        <!-- 4. 残酷的数学对比区 (The "Why Compare" Hook) -->
+        <section class="bg-white rounded-3xl p-8 lg:p-12 shadow-[0_15px_40px_rgba(0,0,0,0.04)] border border-gray-100 mb-24 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+                <div class="inline-block bg-yellow-100 text-yellow-800 px-3 py-1 rounded text-[10px] font-black uppercase tracking-widest mb-4">
+                    The Cost of Guessing
+                </div>
+                <h2 class="font-serif text-3xl md:text-4xl font-bold mb-4 text-[var(--lt-navy)] leading-tight">Your bank isn't giving you the best deal.</h2>
+                <p class="text-gray-500 font-medium leading-relaxed mb-8">
+                    Taking the first loan offer you see is the most expensive mistake you can make. See what happens when you force banks to compete for your $20,000 loan.
+                </p>
+                
+                <div class="space-y-4">
+                    <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 flex justify-between items-center">
+                        <div>
+                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Average Bank Offer</p>
+                            <p class="text-lg font-black text-gray-800">14.99% APR</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-[10px] font-bold text-red-400 uppercase tracking-widest">Total Interest</p>
+                            <p class="text-lg font-black text-red-600">$8,540</p>
+                        </div>
+                    </div>
+                    <div class="bg-[var(--lt-light)] p-4 rounded-xl border border-[var(--lt-green)] flex justify-between items-center shadow-md relative overflow-hidden">
+                        <div class="absolute right-0 top-0 w-16 h-full bg-[var(--lt-green)] opacity-10 skew-x-12"></div>
+                        <div>
+                            <p class="text-[10px] font-bold text-[var(--lt-green)] uppercase tracking-widest">Compared Offer*</p>
+                            <p class="text-lg font-black text-[var(--lt-navy)]">6.99% APR</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-[10px] font-bold text-[var(--lt-green)] uppercase tracking-widest">Total Interest</p>
+                            <p class="text-lg font-black text-[var(--lt-green-hover)]">$3,730</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-[var(--lt-navy)] text-white p-8 md:p-12 rounded-3xl text-center shadow-2xl relative overflow-hidden">
+                <!-- 装饰环 -->
+                <div class="absolute -top-10 -right-10 w-40 h-40 border-4 border-white/10 rounded-full"></div>
+                <div class="absolute -bottom-10 -left-10 w-32 h-32 border-4 border-[var(--lt-green)]/20 rounded-full"></div>
+                
+                <h3 class="font-serif text-2xl mb-2">You could save</h3>
+                <div class="text-6xl md:text-7xl font-black text-[var(--lt-green)] mb-6 tracking-tighter">$4,810</div>
+                <p class="text-sm text-gray-300 font-medium mb-8 leading-relaxed">
+                    Stop overpaying. Use our 100% free tool to compare real rates in under 2 minutes.
+                </p>
+                <!-- 【替换此处为你真实的 Affiliate Link】 -->
+                <a href="YOUR_OFFER_LINK_HERE" class="shimmer relative block w-full bg-[var(--lt-green)] hover:bg-[var(--lt-green-hover)] text-[var(--lt-navy)] font-black text-lg py-5 rounded-xl transition-all shadow-[0_10px_20px_rgba(0,214,125,0.3)] hover:-translate-y-1 uppercase tracking-wider overflow-hidden">
+                    SEE YOUR SAVINGS ➔
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. 真实用户评价 (Social Proof) -->
+    <section class="mb-24">
+        <div class="text-center mb-12">
+            <h3 class="font-serif text-3xl font-semibold mb-2 text-[var(--lt-navy)]">Over $50 Billion in loans funded.</h3>
+            <div class="flex justify-center items-center gap-2">
+                <span class="text-xl text-yellow-400">★★★★★</span>
+                <span class="text-xs font-bold text-gray-400 uppercase tracking-widest mt-1">Excellent Rating</span>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 relative">
+                <div class="absolute top-8 right-8 text-4xl text-gray-100 font-serif leading-none">"</div>
+                <div class="flex text-yellow-400 text-xs mb-4">★★★★★</div>
+                <h4 class="font-bold text-lg mb-2 text-gray-900">"Saved me $300 a month!"</h4>
+                <p class="text-gray-600 text-sm italic leading-relaxed mb-6 font-medium">"I had no idea my personal loan rate was so high until I used this platform to compare. I consolidated my cards and the process was so fast."</p>
+                <p class="text-[10px] font-black uppercase text-gray-400 tracking-widest">— Michael T. <span class="text-[var(--lt-green)] ml-1">Verified User</span></p>
+            </div>
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 relative">
+                <div class="absolute top-8 right-8 text-4xl text-gray-100 font-serif leading-none">"</div>
+                <div class="flex text-yellow-400 text-xs mb-4">★★★★★</div>
+                <h4 class="font-bold text-lg mb-2 text-gray-900">"Lenders actually competed."</h4>
+                <p class="text-gray-600 text-sm italic leading-relaxed mb-6 font-medium">"It's true what they say. I put in my request and immediately saw 4 different banks offering me lower rates than my current bank. Incredible tool."</p>
+                <p class="text-[10px] font-black uppercase text-gray-400 tracking-widest">— Sarah K. <span class="text-[var(--lt-green)] ml-1">Verified User</span></p>
+            </div>
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 relative">
+                <div class="absolute top-8 right-8 text-4xl text-gray-100 font-serif leading-none">"</div>
+                <div class="flex text-yellow-400 text-xs mb-4">★★★★★</div>
+                <h4 class="font-bold text-lg mb-2 text-gray-900">"No credit score impact."</h4>
+                <p class="text-gray-600 text-sm italic leading-relaxed mb-6 font-medium">"I was worried about a hard pull on my credit, but they only do a soft check to show you rates. Found a great rate for my home remodel."</p>
+                <p class="text-[10px] font-black uppercase text-gray-400 tracking-widest">— David R. <span class="text-[var(--lt-green)] ml-1">Verified User</span></p>
+            </div>
+        </div>
+    </section>
+
+    </main>
+
+    <!-- 6. 底部合规声明 -->
+    <footer class="bg-[var(--lt-navy)] text-gray-400 py-16 px-6 text-center">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-serif text-2xl font-bold text-white tracking-tight mb-8">Compare & Save Today</h2>
+            <p class="text-[10px] leading-relaxed mb-8 max-w-4xl mx-auto font-medium opacity-60">
+                This is an independent promotional portal. We are not a lender, but we partner with networks that include 300+ lenders. Checking your rates will not affect your credit score. A hard inquiry is only made if you select an offer and proceed with a formal application with a specific lender. Terms and conditions apply based on the lender you choose.
+            </p>
+            <div class="flex justify-center gap-6 text-[10px] font-bold uppercase tracking-widest text-white/60">
+                <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                <a href="#" class="hover:text-white transition-colors">Terms of Use</a>
+                <a href="#" class="hover:text-white transition-colors">Disclosures</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 7. 移动端吸底 CTA (CTR 狂飙的核心) -->
+    <div class="md:hidden fixed bottom-0 left-0 w-full bg-white/95 backdrop-blur-md border-t border-gray-200 p-4 pb-6 z-50 shadow-[0_-10px_30px_rgba(0,0,0,0.08)]">
+        <div class="flex justify-between items-center mb-3 px-1">
+            <span class="text-[10px] font-black text-[var(--lt-green-hover)] uppercase tracking-widest flex items-center gap-1.5 animate-pulse">
+                <span class="w-1.5 h-1.5 bg-[var(--lt-green)] rounded-full"></span> 300+ Lenders Online
+            </span>
+            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest italic">No Credit Hit</span>
+        </div>
+        <!-- 【替换此处为你真实的 Affiliate Link】 -->
+        <a href="YOUR_OFFER_LINK_HERE" class="shimmer relative block w-full bg-[var(--lt-navy)] hover:bg-[#1a354b] text-white py-4 text-center font-black text-sm tracking-widest shadow-xl uppercase rounded-xl overflow-hidden">
+            Compare Rates Now ➔
+        </a>
+    </div>
+
+    <!-- 动态弹窗 (FOMO 错失恐惧症制造器) -->
+    <div id="social-proof-toast" class="fixed bottom-28 md:bottom-8 left-4 bg-white p-3 rounded-xl shadow-2xl border border-gray-100 flex items-center gap-3 z-50 transform translate-y-20 opacity-0 transition-all duration-500 max-w-[280px]">
+        <div class="w-10 h-10 bg-[var(--lt-light)] rounded-full flex items-center justify-center text-[var(--lt-green)] shrink-0">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        </div>
+        <div>
+            <p class="text-[10px] font-bold text-gray-800 leading-tight mb-0.5"><span id="toast-name">Jason M.</span> from <span id="toast-state">TX</span> just matched.</p>
+            <p class="text-[9px] font-black text-[var(--lt-green)] uppercase tracking-wider">Saved $240 / month</p>
+        </div>
+    </div>
+
+    <script>
+        // 社交背书动态弹窗逻辑
+        const names = ["Michael T.", "Sarah K.", "David R.", "Jessica L.", "Robert W.", "Amanda B."];
+        const states = ["TX", "CA", "FL", "NY", "OH", "IL"];
+        
+        function showToast() {
+            const toast = document.getElementById('social-proof-toast');
+            const nameEl = document.getElementById('toast-name');
+            const stateEl = document.getElementById('toast-state');
+            
+            nameEl.innerText = names[Math.floor(Math.random() * names.length)];
+            stateEl.innerText = states[Math.floor(Math.random() * states.length)];
+            
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 4000);
+        }
+
+        // 延迟3秒首次弹出，之后每10秒弹出一次
+        setTimeout(() => {
+            showToast();
+            setInterval(showToast, 10000);
+        }, 3000);
+    </script>
+</body>
+</html>

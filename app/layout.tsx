@@ -34,6 +34,7 @@ export default function RootLayout({
       lang="en"
       className={`${manrope.variable} ${cormorant.variable} h-full scroll-smooth antialiased`}
     >
+      <meta name="google-site-verification" content="v4mhGwWqHzd4VEvH1C-wVbUP1vX5wvZgTPAwWX_SQ-U" />
       <Script
         id="microsoft-clarity"
         strategy="lazyOnload"
